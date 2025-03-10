@@ -1,0 +1,63 @@
+/* Container for the entire profile card */
+.profile-card {
+    height: 700px;
+    width: 350px;
+    border-radius: 40px;
+    background-color: #000000;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  
+  /* Avatar/image inside the card */
+  .profile-card img {
+    border-radius: 40px 40px 0 0;
+    width: 350px;
+    height: 350px;
+  }
+  
+  /* Card’s main title (e.g., name) */
+  .profile-card h2 {
+    font-size: xx-large;
+  }
+  
+  /* Generic text paragraphs in the card */
+  .profile-card p {
+    font-size: medium;
+  }
+  
+  /* If you’d like the bio italicized, for example: */
+  .profile-card .bio {
+    font-style: italic;
+  }
+
+
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .button-neg {
+    width: 100px;
+    height: 100px;
+    background-color: #ff0000;
+    color: #000000;
+    border: none;
+    border-radius: 50%;
+    padding: 0px 20px;
+    font-size: 75px;
+    cursor: pointer;
+  }
+
+  .button-pos {
+    width: 100px;
+    height: 100px;
+    background-color: #00ff0d;
+    color: #000000;
+    border: none;
+    border-radius: 50%;
+    padding: 0px 20px;
+    font-size: 75px;
+    cursor: pointer;
+  }
+  
