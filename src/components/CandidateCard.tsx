@@ -30,7 +30,7 @@ const CandidateCard: React.FC = () => {
 
       console.log('Full Data:', fullData);
 
-   
+      // Convert each user object into the shape we need for our profile
       const mappedCandidates: ProfileProps[] = fullData.map((user: any) => ({
         id: user.id,
         avatarUrl: user.avatar_url,
@@ -46,26 +46,33 @@ const CandidateCard: React.FC = () => {
     });
   }
 
-  
+  /**
+   * Fetch candidates from GitHub upon component mount.
+   * Convert them into the ProfileProps shape and store in `candidates`.
+   */
   useEffect(() => {
     fetchCandidates();
   }, []);
 
-  
+  /**
+   * Helper to get the "current" user's data from the `candidates` array.
+   */
   const currentProfile = candidates[currentIndex] || null;
 
- 
+  /**
+   * Saves the current user’s ID to localStorage and then goes to the next card.
+   */
   const handleAddCandidate = () => {
     if (!currentProfile) return;
 
     const userIdAsString = String(currentProfile.username);
-   
+    // 1. Get existing array from localStorage
     const existingCandidates: string[] = JSON.parse(
       localStorage.getItem('potential_candidates') || '[]'
     );
-    
+    // 2. Push new ID into array
     existingCandidates.push(userIdAsString);
-
+    // 3. Save updated array back to local storage
     localStorage.setItem(
       'potential_candidates',
       JSON.stringify(existingCandidates)
@@ -74,28 +81,34 @@ const CandidateCard: React.FC = () => {
     goToNextCandidate();
   };
 
-  
+  /**
+   * Skip saving to localStorage, just go to the next card.
+   */
   const handleSkipCandidate = () => {
     goToNextCandidate();
   };
 
-  
+  /**
+   * Increments the current index to load the next candidate.
+   */
   const goToNextCandidate = () => {
     setCurrentIndex((prevIndex) => {
       const newIndex = prevIndex + 1;
       if (newIndex >= candidates.length) {
         fetchCandidates();
-        return 0; 
+        return 0; // or reset to 0 if you want to wrap around
+      }
       return newIndex;
     });
   };
 
-
+  // If there's no current profile (e.g., data not loaded or end of array):
   if (!currentProfile) {
     fetchCandidates();
     return;
   }
 
+  // Render the current candidate’s card
   return (
     <div>
       <div className='profile-card'>
