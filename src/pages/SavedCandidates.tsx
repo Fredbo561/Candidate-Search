@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { searchGithubUser } from '../api/API'; // Make sure getGithubUser fetches by username
+import { searchGithubUser } from '../api/API'; 
 import '../table.css';
 
 interface GitHubUser {
@@ -16,14 +16,14 @@ const SavedCandidates: React.FC = () => {
   const [candidates, setCandidates] = useState<GitHubUser[]>([]);
 
   useEffect(() => {
-    // 1. Read stored usernames from localStorage
+
     const storedUsernames = JSON.parse(
       localStorage.getItem('potential_candidates') || '[]'
     ) as string[];
 
     if (storedUsernames.length === 0) return;
 
-    // 2. Fetch each user by their username
+  
     Promise.all(storedUsernames.map((username) => searchGithubUser(username)))
       .then((fetchedUsers: GitHubUser[]) => {
         setCandidates(fetchedUsers);
